@@ -61,6 +61,13 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Setup")
 		float MaxAngleOfMissileRotation = 60;
 
+	UPROPERTY(EditAnywhere, Category = "Setup")
+		float GuidingRate = 1;
+
+	UPROPERTY(EditAnywhere, Category = "Setup")
+		float RollSpeed = 300;
+		
+
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 

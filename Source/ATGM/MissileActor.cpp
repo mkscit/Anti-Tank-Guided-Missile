@@ -43,8 +43,6 @@ void AMissileActor::BeginPlay()
 	FTimerHandle Timer;
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::DestroyAfterLost_TimeExpired, TimeToDestroyMissileAfterLost, false);
 
-	FTimerHandle Timer;
-	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::DestroyAfterLost_TimeExpired, TimeToDestroyMissileAfterLost, false);
 }
 
 // Called every frame
@@ -54,7 +52,7 @@ void AMissileActor::Tick(float DeltaTime)
 
 	if (!LauncherPlayerController || !FrontPartOfMissile) return;
 
-	ReGuidingMissile();
+	ReGuidingMissile(DeltaTime);
 	Move(DeltaTime);
 }
 
@@ -176,28 +174,27 @@ void AMissileActor::DestroyAfterLost_TimeExpired()
 	Destroy();
 }
 
-void AMissileActor::ReGuidingMissile()
+void AMissileActor::ReGuidingMissile(float DeltaTime)
 {
 	if(!FrontPartOfMissile) return;
-	FRotator PerviousRotation(0, 0, 0);
 	
 	if(LauncherPlayerController->Hit.GetActor() != this)
 	{
-		FrontPartOfMissile->SetWorldRotation(LauncherPlayerController->Crosshair_3D_Direction.Rotation());
 		FVector TargetLocation = LauncherPlayerController->Hit.Location;
-		auto MissileLocation = FrontPartOfMissile->GetComponentLocation();
-		auto DeltaRotation = (TargetLocation - MissileLocation).Rotation();
+		auto MissileLocation = GetActorLocation();
+		auto TargetMissileDirection = (TargetLocation - MissileLocation).GetSafeNormal();
 
-		if(FMath::Abs(DeltaRotation.Yaw) <= MaxAngleOfMissileRotation && FMath::Abs(DeltaRotation.Pitch) <= MaxAngleOfMissileRotation)
+		auto TargetMissileRotation = TargetMissileDirection.Rotation();
+		auto MissileRotation = FrontPartOfMissile->GetForwardVector().Rotation();
+		auto TargetMissileRotation = TargetMissileRotation - MissileRotation;
+
+		if(FMath::Abs(TargetMissileRotation.Yaw) <= MaxAngleOfMissileRotation && FMath::Abs(TargetMissileRotation.Pitch) <= MaxAngleOfMissileRotation)
 		{
-			FrontPartOfMissile->SetWorldRotation( DeltaRotation );
-			PerviousRotation = DeltaRotation;
+			auto Angle = TargetMissileRotation * DeltaTime * FMath::Clamp<float>(GuidingRate, 1, 1.5);
+			auto Rotator = FrontPartOfMissile->GetComponentRotation() + Angle;
+			FrontPartOfMissile->SetWorldRotation(Rotator);
 		}
-		// DrawDebugLine(GetWorld(), MissileLocation, MissileLocation + (TargetLocation - MissileLocation) * 4000, FColor::Green,
-		// 	false, -1, 0, 10);
 	}	
-
-	
 }
 
 void AMissileActor::Move(float DeltaTime)
@@ -206,4 +203,6 @@ void AMissileActor::Move(float DeltaTime)
 	
 	auto Distance = Speed * DeltaTime;
 	FrontPartOfMissile->AddLocalTransform(FTransform(FVector(Distance, 0, 0)));
+
+	FrontPartOfMissile->AddLocalRotation(FRotator(0, 0, RollSpeed * DeltaTime));
 }
