@@ -133,11 +133,11 @@ void ALauncherPawn::ShowThirdPersonCAM2()
 
 void ALauncherPawn::SetMissleInTheWorld(FVector Location, FRotator Rotation)
 {
-	// Missile = GetWorld()->SpawnActor<AMissileActor>(
-	// 	MissileActor_BP,
-	// 	Location,
-	// 	Rotation
-	// );
+	Missile = GetWorld()->SpawnActor<AMissileActor>(
+		MissileActor_BP,
+		Location,
+		Rotation
+	);
 }
 
 void ALauncherPawn::GetCameraLocation(FVector& CameraLocation)

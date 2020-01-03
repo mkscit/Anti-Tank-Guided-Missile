@@ -2,7 +2,7 @@
 
 #pragma once
 
-// #include "MissileActor.h"
+#include "MissileActor.h"
 #include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/World.h"
@@ -12,7 +12,7 @@
 #include "LauncherPawn.generated.h"
 
 class ALauncherPlayerController;
-// class AMissileActor;
+class AMissileActor;
 
 UCLASS()
 class ATGM_API ALauncherPawn : public APawn
@@ -35,8 +35,8 @@ public:
 
 	void GetCameraLocation(FVector& CameraLocation);
 
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
-	// 	TSubclassOf<AMissileActor> MissileActor_BP;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
+		TSubclassOf<AMissileActor> MissileActor_BP;
 
 private:
 
@@ -63,7 +63,7 @@ private:
 
 
 
-	// AMissileActor* Missile = nullptr;
+	AMissileActor* Missile = nullptr;
 
 	void Right_Left(float Axis);
 	void Up_Down(float Axis);
