@@ -41,7 +41,10 @@ void AMissileActor::BeginPlay()
 	}
 
 	FTimerHandle Timer;
-	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::OnTimerExpireAfterLost, TimeToDestroyMissileAfterLost, false);
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::DestroyAfterLost_TimeExpired, TimeToDestroyMissileAfterLost, false);
+
+	FTimerHandle Timer;
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::DestroyAfterLost_TimeExpired, TimeToDestroyMissileAfterLost, false);
 }
 
 // Called every frame
@@ -85,7 +88,7 @@ void AMissileActor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	FrontPartOfMissile = nullptr;
 
 	FTimerHandle Timer;
-	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::OnTimerExpireAfterCollision, TimeToDestroyMissileAfterExplosion, false);
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::DestroyAfterCollision_TimeExpired, TimeToDestroyMissileAfterExplosion, false);
 }
 
 void AMissileActor::DestroyTheTarget(AActor* Target)
@@ -163,12 +166,12 @@ void AMissileActor::DestroyTheTarget(AActor* Target)
 	// }
 }
 
-void AMissileActor::OnTimerExpireAfterCollision()
+void AMissileActor::DestroyAfterCollision_TimeExpired()
 {
 	Destroy();
 }
 
-void AMissileActor::OnTimerExpireAfterLost()
+void AMissileActor::DestroyAfterLost_TimeExpired()
 {
 	Destroy();
 }
@@ -200,7 +203,7 @@ void AMissileActor::ReGuidingMissile()
 void AMissileActor::Move(float DeltaTime)
 {
 	if(!FrontPartOfMissile) return;
-	FVector Translation = FVector(Acceleration, 0, 0);
-	FTransform Trans = FTransform(/*Rotation,*/ Translation);
-	FrontPartOfMissile->AddLocalTransform(Trans);
+	
+	auto Distance = Speed * DeltaTime;
+	FrontPartOfMissile->AddLocalTransform(FTransform(FVector(Distance, 0, 0)));
 }
