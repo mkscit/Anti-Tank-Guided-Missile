@@ -60,9 +60,6 @@ private:
 	UCameraComponent* ThirdPersonCAM1 = nullptr;
 
 	UCameraComponent* ThirdPersonCAM2 = nullptr;
-
-
-
 	AMissileActor* Missile = nullptr;
 
 	void Right_Left(float Axis);

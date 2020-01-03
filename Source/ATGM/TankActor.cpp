@@ -16,50 +16,30 @@ ATankActor::ATankActor()
 void ATankActor::BeginPlay()
 {
 	Super::BeginPlay();
-	Pawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 }
 
 // Called every frame
 void ATankActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	// AimToMainPlayer();
 }
 
-
-void ATankActor::SetUp(UStaticMeshComponent* Body,  UStaticMeshComponent* Turret, UStaticMeshComponent* Barrel)
+void ATankActor::DestroyWeakArea1(AActor* AttackSource)
 {
-	this->Body = Body;
-	this->Turret = Turret;
-	this->Barrel = Barrel;
-}
-
-void ATankActor::Destroy(AActor* AttackSource)
-{
-	AMissile* Missile = nullptr;
-	Missile = Cast<AMissile>(AttackSource);
+	AMissileActor* Missile = nullptr;
+	Missile = Cast<AMissileActor>(AttackSource);
 
 	if(!Missile) return;
 
 	
 }
 
-void ATankActor::MoveForward(/*UTrack* Track,*/ float Throttle)
+void ATankActor::DestroyWeakArea2(AActor* AttackSource)
 {
-	// if(!Body || !Track) return;
+	AMissileActor* Missile = nullptr;
+	Missile = Cast<AMissileActor>(AttackSource);
+
+	if(!Missile) return;
+
 	
-	// Force = Body->GetMass() * Body->GetForwardVector() * Acceleration * Throttle;
-	// FVector Location = Track->GetComponentLocation();
-
-	// Body->AddForceAtLocation(Force, Location);
 }
-
-void ATankActor::MoveBackward(/*UTrack* Track,*/ float Throttle)
-{
-	// Force = Body->GetMass() * Body->GetForwardVector() * Acceleration * (-Throttle);
-	// FVector Location = Track->GetComponentLocation();
-
-	// Body->AddForceAtLocation(Force, Location);
-}
-

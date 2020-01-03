@@ -41,25 +41,30 @@ void UAimingActorComponent::SetUp( UStaticMeshComponent* Turret, UStaticMeshComp
 
 void UAimingActorComponent::AimToMainPlayer(float DeltaTime)
 {
-	FVector TargetLocation = Pawn->GetActorLocation();
-	FVector OUT Direction;
-	GetTargetDirection(Direction, TargetLocation);
-	
+	FVector TargetLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+	FVector BarrelLocation = Barrel->GetComponentLocation();
+	auto Direction = (TargetLocation - BarrelLocation).GetSafeNormal();
+
 	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
 	FRotator DirectionRotation = Direction.Rotation();
-	FRotator DeltaRotation = DirectionRotation - BarrelRotation;
+	FRotator DeltaRotation = (DirectionRotation - BarrelRotation);
 
-	TurretAimToDirection(DeltaRotation);
-	BarrelAimToDirection(DeltaRotation);
+	DrawDebugLine(GetWorld(), BarrelLocation, BarrelLocation + Direction * 200000, FColor::Blue, false, 0, 0, 10);
+	TurretAimToTarget(DeltaRotation, DeltaTime);
+	BarrelAimToTarget(DeltaRotation, DeltaTime);
 }
 
-void UAimingActorComponent::TurretAimToDirection(FRotator DeltaRotation)
+void UAimingActorComponent::TurretAimToTarget(FRotator DeltaRotation, float DeltaTime)
 {
-	Turret->AddRelativeRotation(FRotator(0, DeltaRotation.Yaw, 0));
+	auto TurretRotatingAngle = Turret->GetComponentRotation().Yaw + (DeltaRotation.Yaw * DeltaTime);
+	Turret->SetRelativeRotation(FRotator(0, TurretRotatingAngle, 0));
 }
 
-void UAimingActorComponent::BarrelAimToDirection(FRotator DeltaRotation)
+void UAimingActorComponent::BarrelAimToTarget(FRotator DeltaRotation, float DeltaTime)
 {
-	Barrel->AddRelativeRotation(FRotator(DeltaRotation.Pitch, 0, 0));
+	auto BarrelElevatingAngle = Barrel->GetComponentRotation().Pitch + (DeltaRotation.Pitch * DeltaTime);
+
+	if(BarrelElevatingAngle >= FMath::Clamp<float>(MinBarrelElevationAngle, 0, 40) && BarrelElevatingAngle <= FMath::Clamp<float>(MaxBarrelElevationAngle, 0, 40))
+		Barrel->SetRelativeRotation(FRotator(BarrelElevatingAngle, 0, 0));
 }
 
