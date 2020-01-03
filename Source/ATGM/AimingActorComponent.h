@@ -24,5 +24,13 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+private:
+
+	UFUNCTION(BlueprintCallable, Category = "Tank Aiming")
+		void SetUp(UStaticMeshComponent* Turret, UStaticMeshComponent* Barrel);
+
+	void AimToMainPlayer(float DeltaTime);
+
+	UStaticMeshComponent* Turret = nullptr;
+	UStaticMeshComponent* Barrel = nullptr;
 };

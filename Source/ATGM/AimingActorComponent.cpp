@@ -30,5 +30,36 @@ void UAimingActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+	AimToMainPlayer(DeltaTime);
+}
+
+void UAimingActorComponent::SetUp( UStaticMeshComponent* Turret, UStaticMeshComponent* Barrel)
+{
+	this->Turret = Turret;
+	this->Barrel = Barrel;
+}
+
+void UAimingActorComponent::AimToMainPlayer(float DeltaTime)
+{
+	FVector TargetLocation = Pawn->GetActorLocation();
+	FVector OUT Direction;
+	GetTargetDirection(Direction, TargetLocation);
+	
+	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
+	FRotator DirectionRotation = Direction.Rotation();
+	FRotator DeltaRotation = DirectionRotation - BarrelRotation;
+
+	TurretAimToDirection(DeltaRotation);
+	BarrelAimToDirection(DeltaRotation);
+}
+
+void UAimingActorComponent::TurretAimToDirection(FRotator DeltaRotation)
+{
+	Turret->AddRelativeRotation(FRotator(0, DeltaRotation.Yaw, 0));
+}
+
+void UAimingActorComponent::BarrelAimToDirection(FRotator DeltaRotation)
+{
+	Barrel->AddRelativeRotation(FRotator(DeltaRotation.Pitch, 0, 0));
 }
 

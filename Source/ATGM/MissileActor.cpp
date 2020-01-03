@@ -186,11 +186,11 @@ void AMissileActor::ReGuidingMissile(float DeltaTime)
 
 		auto TargetMissileRotation = TargetMissileDirection.Rotation();
 		auto MissileRotation = FrontPartOfMissile->GetForwardVector().Rotation();
-		auto TargetMissileRotation = TargetMissileRotation - MissileRotation;
+		auto DeltaTargetMissileRotation = TargetMissileRotation - MissileRotation;
 
-		if(FMath::Abs(TargetMissileRotation.Yaw) <= MaxAngleOfMissileRotation && FMath::Abs(TargetMissileRotation.Pitch) <= MaxAngleOfMissileRotation)
+		if(FMath::Abs(DeltaTargetMissileRotation.Yaw) <= MaxAngleOfMissileRotation && FMath::Abs(DeltaTargetMissileRotation.Pitch) <= MaxAngleOfMissileRotation)
 		{
-			auto Angle = TargetMissileRotation * DeltaTime * FMath::Clamp<float>(GuidingRate, 1, 1.5);
+			auto Angle = DeltaTargetMissileRotation * DeltaTime * FMath::Clamp<float>(GuidingRate, 1, 1.5);
 			auto Rotator = FrontPartOfMissile->GetComponentRotation() + Angle;
 			FrontPartOfMissile->SetWorldRotation(Rotator);
 		}

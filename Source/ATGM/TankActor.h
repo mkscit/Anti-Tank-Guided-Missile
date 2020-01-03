@@ -31,6 +31,9 @@ private:
 	UFUNCTION(BlueprintCallable, Category = "TankActor Setup")
 		void SetUp(UStaticMeshComponent* Body, UStaticMeshComponent* Turret, UStaticMeshComponent* Barrel);
 
+	UFUNCTION(BlueprintCallable, Category = "Tank Distruction")
+		void Destroy(AActor* AttackSource);
+
 	void MoveForward(float Throttle);
 	void MoveBackward(float Throttle);
 

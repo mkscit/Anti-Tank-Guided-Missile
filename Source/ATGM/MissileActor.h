@@ -39,7 +39,7 @@ private:
 	void DestroyTheTarget(AActor* Target);
 	void DestroyAfterCollision_TimeExpired();
 	void DestroyAfterLost_TimeExpired();
-	void ReGuidingMissile();
+	void ReGuidingMissile(float DeltaTime);
 	void Move(float DeltaTime);
 	
 	UParticleSystemComponent*  Blast 			        = nullptr;

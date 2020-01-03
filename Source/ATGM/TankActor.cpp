@@ -24,7 +24,7 @@ void ATankActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	AimToMainPlayer();
+	// AimToMainPlayer();
 }
 
 
@@ -33,6 +33,16 @@ void ATankActor::SetUp(UStaticMeshComponent* Body,  UStaticMeshComponent* Turret
 	this->Body = Body;
 	this->Turret = Turret;
 	this->Barrel = Barrel;
+}
+
+void ATankActor::Destroy(AActor* AttackSource)
+{
+	AMissile* Missile = nullptr;
+	Missile = Cast<AMissile>(AttackSource);
+
+	if(!Missile) return;
+
+	
 }
 
 void ATankActor::MoveForward(/*UTrack* Track,*/ float Throttle)
@@ -53,33 +63,3 @@ void ATankActor::MoveBackward(/*UTrack* Track,*/ float Throttle)
 	// Body->AddForceAtLocation(Force, Location);
 }
 
-void ATankActor::AimToMainPlayer()
-{
-	
-	FVector TargetLocation = Pawn->GetActorLocation();
-	FVector OUT Direction;
-	GetTargetDirection(Direction, TargetLocation);
-	
-	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
-	FRotator DirectionRotation = Direction.Rotation();
-	FRotator DeltaRotation = DirectionRotation - BarrelRotation;
-
-	TurretAimToDirection(DeltaRotation);
-	BarrelAimToDirection(DeltaRotation);
-}
-
-void ATankActor::TurretAimToDirection(FRotator DeltaRotation)
-{
-	Turret->AddRelativeRotation(FRotator(0, DeltaRotation.Yaw, 0));
-}
-
-void ATankActor::BarrelAimToDirection(FRotator DeltaRotation)
-{
-	Barrel->AddRelativeRotation(FRotator(DeltaRotation.Pitch, 0, 0));
-}
-
-void ATankActor::GetTargetDirection(FVector& Direction, FVector TargetLocation)
-{
-	FVector BarrelLocation = Barrel->GetComponentLocation();
-	Direction = (TargetLocation - BarrelLocation);
-}
