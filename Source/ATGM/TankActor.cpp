@@ -35,15 +35,15 @@ void ATankActor::DestroyWeakArea1(AActor* AttackSource)
 		GetComponentsByClass(UStaticMeshComponent::StaticClass());
 
 	if (StaticMeshes.Num() > 0) {
-		UE_LOG(LogTemp, Warning, TEXT("0 is %s"), *StaticMeshes[0]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("1 is %s"), *StaticMeshes[1]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("2 is %s"), *StaticMeshes[2]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("3 is %s"), *StaticMeshes[3]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("4 is %s"), *StaticMeshes[4]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("5 is %s"), *StaticMeshes[5]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("6 is %s"), *StaticMeshes[6]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("7 is %s"), *StaticMeshes[7]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("8 is %s"), *StaticMeshes[8]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("0 is %s"), *StaticMeshes[0]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("1 is %s"), *StaticMeshes[1]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("2 is %s"), *StaticMeshes[2]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("3 is %s"), *StaticMeshes[3]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("4 is %s"), *StaticMeshes[4]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("5 is %s"), *StaticMeshes[5]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("6 is %s"), *StaticMeshes[6]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("7 is %s"), *StaticMeshes[7]->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("8 is %s"), *StaticMeshes[8]->GetName());
 
 
 		// LogTemp: Warning: 0 is Body
@@ -55,6 +55,24 @@ void ATankActor::DestroyWeakArea1(AActor* AttackSource)
 		// LogTemp: Warning: 6 is GunnerSight
 		// LogTemp: Warning: 7 is RightTrack
 		// LogTemp: Warning: 8 is LeftTrack
+
+		UStaticMeshComponent* Light1 = Cast<UStaticMeshComponent>(StaticMeshes[3]);
+		UStaticMeshComponent* Light2 = Cast<UStaticMeshComponent>(StaticMeshes[1]);
+		UStaticMeshComponent* GunnerSight = Cast<UStaticMeshComponent>(StaticMeshes[6]);
+		UStaticMeshComponent* Commander = Cast<UStaticMeshComponent>(StaticMeshes[4]);
+		Light1->SetSimulatePhysics(true);
+		Light2->SetSimulatePhysics(true);
+		GunnerSight->SetSimulatePhysics(true);
+		Commander->SetSimulatePhysics(true);
+		
+		UStaticMeshComponent* Barrel = Cast<UStaticMeshComponent>(StaticMeshes[2]);
+		UStaticMeshComponent* Turret = Cast<UStaticMeshComponent>(StaticMeshes[5]);
+		UStaticMeshComponent* RightTrack = Cast<UStaticMeshComponent>(StaticMeshes[7]);
+		UStaticMeshComponent* LeftTrack = Cast<UStaticMeshComponent>(StaticMeshes[8]);
+		Barrel->SetSimulatePhysics(true);
+		Turret->SetSimulatePhysics(true);
+		RightTrack->SetSimulatePhysics(true);
+		LeftTrack->SetSimulatePhysics(true);
 	}
 	
 }
@@ -70,14 +88,22 @@ void ATankActor::DestroyWeakArea2(AActor* AttackSource)
 		GetComponentsByClass(UStaticMeshComponent::StaticClass());
 
 	if (StaticMeshes.Num() > 0) {
-		UE_LOG(LogTemp, Warning, TEXT("0 is %s"), *StaticMeshes[0]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("1 is %s"), *StaticMeshes[1]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("2 is %s"), *StaticMeshes[2]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("3 is %s"), *StaticMeshes[3]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("4 is %s"), *StaticMeshes[4]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("5 is %s"), *StaticMeshes[5]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("6 is %s"), *StaticMeshes[6]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("7 is %s"), *StaticMeshes[7]->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("8 is %s"), *StaticMeshes[8]->GetName());
+		UStaticMeshComponent* Light1 = Cast<UStaticMeshComponent>(StaticMeshes[3]);
+		UStaticMeshComponent* Light2 = Cast<UStaticMeshComponent>(StaticMeshes[1]);
+		UStaticMeshComponent* GunnerSight = Cast<UStaticMeshComponent>(StaticMeshes[6]);
+		UStaticMeshComponent* Commander = Cast<UStaticMeshComponent>(StaticMeshes[4]);
+		Light1->SetSimulatePhysics(true);
+		Light2->SetSimulatePhysics(true);
+		GunnerSight->SetSimulatePhysics(true);
+		Commander->SetSimulatePhysics(true);
+		
+		UStaticMeshComponent* Barrel = Cast<UStaticMeshComponent>(StaticMeshes[2]);
+		UStaticMeshComponent* Turret = Cast<UStaticMeshComponent>(StaticMeshes[5]);
+		UStaticMeshComponent* RightTrack = Cast<UStaticMeshComponent>(StaticMeshes[7]);
+		UStaticMeshComponent* LeftTrack = Cast<UStaticMeshComponent>(StaticMeshes[8]);
+		Barrel->SetSimulatePhysics(true);
+		Turret->SetSimulatePhysics(true);
+		RightTrack->SetSimulatePhysics(true);
+		LeftTrack->SetSimulatePhysics(true);
 	}
 }
