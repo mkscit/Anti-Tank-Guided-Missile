@@ -36,9 +36,6 @@ void ALauncherPlayerController::AimAt()
 void ALauncherPlayerController::LineTracing(FVector& StartLocation, FVector& EndLocation)
 {
 	GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility);
-	
-	// auto HitActor = Hit.GetActor();
-	// if(HitActor) UE_LOG(LogTemp, Warning, TEXT("Line Tracing hits %s"), *HitActor->GetName());
 }
 
 ALauncherPawn* ALauncherPlayerController::GetKorniteOperatorPawn() const
