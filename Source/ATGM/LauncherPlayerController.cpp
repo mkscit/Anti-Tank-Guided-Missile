@@ -22,7 +22,7 @@ void ALauncherPlayerController::AimAt()
 		if (!GetKorniteOperatorPawn()) return;
 
 		FVector OUT CameraLocation;
-		// GetKorniteOperatorPawn()->GetCameraLocation(CameraLocation);
+		GetKorniteOperatorPawn()->GetCameraLocation(CameraLocation);
         
 
 		auto StartLocation = CameraLocation;
