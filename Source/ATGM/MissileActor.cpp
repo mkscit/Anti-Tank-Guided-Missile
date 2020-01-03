@@ -36,8 +36,8 @@ void AMissileActor::BeginPlay()
 	TArray<UActorComponent*> ParticleSystems = 
 		GetComponentsByClass(UParticleSystemComponent ::StaticClass());
 	if (ParticleSystems.Num() > 0) {
-		Fireball = Cast<UParticleSystemComponent>(ParticleSystems[0]);
-		Blast = Cast<UParticleSystemComponent>(ParticleSystems[1]);
+		Fireball = Cast<UParticleSystemComponent>(ParticleSystems[1]);
+		Blast = Cast<UParticleSystemComponent>(ParticleSystems[0]);
 	}
 
 	FTimerHandle Timer;

@@ -29,9 +29,9 @@ void ALauncherPawn::BeginPlay()
 
 
 	if (Cameras.Num() > 0) {
-		ThirdPersonCAM2 = Cast<UCameraComponent>(Cameras[1]);
-		ThirdPersonCAM1   = Cast<UCameraComponent>(Cameras[0]);
-		FirstPersonCAM = Cast<UCameraComponent>(Cameras[2]);
+		ThirdPersonCAM2 = Cast<UCameraComponent>(Cameras[2]);
+		ThirdPersonCAM1   = Cast<UCameraComponent>(Cameras[1]);
+		FirstPersonCAM = Cast<UCameraComponent>(Cameras[0]);
 
 		
 	}
