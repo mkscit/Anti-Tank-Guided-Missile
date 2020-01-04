@@ -37,9 +37,15 @@ public:
 private:
 
 	void DestroyTheTarget(AActor* Target);
+<<<<<<< HEAD
 	void DestroyAfterCollision_TimeExpired();
 	void DestroyAfterLost_TimeExpired();
 	void ReGuidingMissile(float DeltaTime);
+=======
+	void OnTimerExpireAfterCollision();
+	void OnTimerExpireAfterLost();
+	void ReGuidingMissile();
+>>>>>>> parent of cda0aff... Update Code
 	void Move(float DeltaTime);
 	
 	UParticleSystemComponent*  Blast 			        = nullptr;
@@ -50,13 +56,13 @@ private:
 	UStaticMeshComponent*      MissileBack              = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-		float TimeToDestroyMissileAfterExplosion = 30;
+		float TimeToDestroyMissileAfterExplosion = 20;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-		float TimeToDestroyMissileAfterLost = 120;
+		float TimeToDestroyMissileAfterLost = 30;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-		float Speed = 500;
+		float Acceleration = 800;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
 		float MaxAngleOfMissileRotation = 60;
