@@ -28,8 +28,11 @@ void ALauncherPlayerController::AimAt()
 		auto StartLocation = CameraLocation;
 		auto EndLocation = StartLocation + Crosshair_3D_Direction * Range;
 		
+		DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Red, false, 0, 0, 10);
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *(Crosshair_3D_Direction * Range).ToString());
+
 		bool IsHittingSomthing = GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility);
-		if(!IsHittingSomthing) Hit.Location = Crosshair_3D_Direction * Range;
+		if(!IsHittingSomthing) Hit.Location = EndLocation;
 	}
 }
 

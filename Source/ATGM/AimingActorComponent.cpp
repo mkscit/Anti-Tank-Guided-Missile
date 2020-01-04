@@ -50,7 +50,7 @@ void UAimingActorComponent::AimToMainPlayer(float DeltaTime)
 	FRotator DirectionRotation = Direction.Rotation();
 	FRotator DeltaRotation = (DirectionRotation - BarrelRotation);
 
-	DrawDebugLine(GetWorld(), BarrelLocation, BarrelLocation + Direction * 200000, FColor::Blue, false, 0, 0, 10);
+	
 	TurretAimToTarget(DeltaRotation, DeltaTime);
 	BarrelAimToTarget(DeltaRotation, DeltaTime);
 }

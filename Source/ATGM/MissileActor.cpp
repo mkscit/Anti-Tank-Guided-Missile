@@ -63,12 +63,12 @@ void AMissileActor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	// Stop the fire behined the FrontPartOfMissile.
 	Fireball->Deactivate();
 
+	// Particle of blast should be activated.
+	Blast->Activate(true);
+
 	// Activate the Radial force affecting to other objects.
 	ExplosionForce->Activate(true);
 	ExplosionForce->FireImpulse();
-
-	// Particle of blast should be activated.
-	Blast->Activate(true);
 
 	// Make the missile back to be physical.
 	MissileBack->SetSimulatePhysics(true);
@@ -79,6 +79,7 @@ void AMissileActor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	// Destroy the front missile but it will be existing.
 	FrontPartOfMissile->DestroyComponent();
 
+	ExplosionForce->DestroyComponent();
 	// Front missile should be null to remove completely.
 	FrontPartOfMissile = nullptr;
 
@@ -123,9 +124,9 @@ void AMissileActor::ReGuidingMissile(float DeltaTime)
 void AMissileActor::Move(float DeltaTime)
 {
 	if(!FrontPartOfMissile) return;
-	
 	auto Distance = Speed * DeltaTime;
 	FrontPartOfMissile->AddLocalTransform(FTransform(FVector(Distance, 0, 0)));
 
+	if(!FrontPartOfMissile) return;
 	FrontPartOfMissile->AddLocalRotation(FRotator(0, 0, RollSpeed * DeltaTime));
 }
