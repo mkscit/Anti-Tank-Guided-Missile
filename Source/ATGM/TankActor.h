@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "AimingActorComponent.h"
 #include "MissileActor.h"
 #include "DrawDebugHelpers.h"
 #include "Components/StaticMeshComponent.h"
@@ -38,5 +39,7 @@ private:
 		void DestroyWeakArea2(AActor* AttackSource);
 
 	void MakeBigDestruction(AActor* AttackSource);
+
+	UAimingActorComponent* AimingComponent = nullptr;
 
 };

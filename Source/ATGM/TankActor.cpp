@@ -3,7 +3,6 @@
 
 #include "TankActor.h"
 
-
 // Sets default values
 ATankActor::ATankActor()
 {
@@ -16,6 +15,8 @@ ATankActor::ATankActor()
 void ATankActor::BeginPlay()
 {
 	Super::BeginPlay();
+
+	
 }
 
 // Called every frame
@@ -83,6 +84,14 @@ void ATankActor::MakeBigDestruction(AActor* AttackSource)
 			Smoke->Activate();
 			UParticleSystemComponent* Spark = Cast<UParticleSystemComponent>(ParticleSystems[2]);
 			Spark->Activate();
+		}
+
+		TArray<UActorComponent*> Components = 
+			GetComponentsByClass(UActorComponent::StaticClass());
+		if (Components.Num() > 0) 
+		{
+			AimingComponent = Cast<UAimingActorComponent>(Components[0]);
+			AimingComponent->DestroyComponent();
 		}
 	}
 }
