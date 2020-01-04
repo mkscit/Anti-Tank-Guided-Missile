@@ -101,7 +101,7 @@ void ALauncherPawn::Fire()
 		FVector Location = MissileLocation->GetComponentLocation();
 		FRotator Rotation = Launcher->GetComponentRotation();
 
-		// if (!ensure(MissileActor_BP)) return;
+		if (!ensure(MissileActor_BP)) return;
 
 		SetMissleInTheWorld(Location, Rotation);
 	}

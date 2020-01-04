@@ -35,17 +35,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-
-	void DestroyTheTarget(AActor* Target);
-<<<<<<< HEAD
 	void DestroyAfterCollision_TimeExpired();
 	void DestroyAfterLost_TimeExpired();
 	void ReGuidingMissile(float DeltaTime);
-=======
-	void OnTimerExpireAfterCollision();
-	void OnTimerExpireAfterLost();
-	void ReGuidingMissile();
->>>>>>> parent of cda0aff... Update Code
 	void Move(float DeltaTime);
 	
 	UParticleSystemComponent*  Blast 			        = nullptr;

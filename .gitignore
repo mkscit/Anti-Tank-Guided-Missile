@@ -17,3 +17,8 @@ Content/Actors/Tank/TankActor_BP.uasset
 Content/Blueprints/ATGMGameModeBase_BP.uasset
 Content/Maps/BattleGrounds.umap
 Content/Pawns/Missile/Meshes/BackMissile.uasset
+Content/Actors/Tank/StaticMesh/Turret.uasset
+Content/Actors/Tank/StaticMesh/Turret.uasset
+Content/Actors/Tank/TankActor_BP.uasset
+Content/Blueprints/ATGMGameModeBase_BP.uasset
+Content/Maps/BattleGrounds.umap
