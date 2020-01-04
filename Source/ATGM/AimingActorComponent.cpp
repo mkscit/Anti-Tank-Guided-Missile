@@ -11,6 +11,7 @@ UAimingActorComponent::UAimingActorComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+	
 }
 
 
@@ -20,7 +21,7 @@ void UAimingActorComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+	UE_LOG(LogTemp, Warning, TEXT("Begin Play"));
 }
 
 

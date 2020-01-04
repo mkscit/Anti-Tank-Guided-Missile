@@ -27,16 +27,12 @@ void ALauncherPlayerController::AimAt()
 
 		auto StartLocation = CameraLocation;
 		auto EndLocation = StartLocation + Crosshair_3D_Direction * Range;
-		// DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Red, false, -1, 0, 10);
-
-		LineTracing(StartLocation, EndLocation);
+		
+		bool IsHittingSomthing = GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility);
+		if(!IsHittingSomthing) Hit.Location = Crosshair_3D_Direction * Range;
 	}
 }
 
-void ALauncherPlayerController::LineTracing(FVector& StartLocation, FVector& EndLocation)
-{
-	GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility);
-}
 
 ALauncherPawn* ALauncherPlayerController::GetKorniteOperatorPawn() const
 {

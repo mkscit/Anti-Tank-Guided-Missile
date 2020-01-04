@@ -41,12 +41,8 @@ void AMissileActor::BeginPlay()
 	}
 
 	FTimerHandle Timer;
-<<<<<<< HEAD
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::DestroyAfterLost_TimeExpired, TimeToDestroyMissileAfterLost, false);
 
-=======
-	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::OnTimerExpireAfterLost, TimeToDestroyMissileAfterLost, false);
->>>>>>> parent of cda0aff... Update Code
 }
 
 // Called every frame
@@ -70,9 +66,6 @@ void AMissileActor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	// Activate the Radial force affecting to other objects.
 	ExplosionForce->Activate(true);
 	ExplosionForce->FireImpulse();
-	
-	// Destroy the target.
-	DestroyTheTarget(OtherActor);
 
 	// Particle of blast should be activated.
 	Blast->Activate(true);
@@ -90,16 +83,16 @@ void AMissileActor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	FrontPartOfMissile = nullptr;
 
 	FTimerHandle Timer;
-	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::OnTimerExpireAfterCollision, TimeToDestroyMissileAfterExplosion, false);
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::DestroyAfterCollision_TimeExpired, TimeToDestroyMissileAfterExplosion, false);
 }
 
 
-void AMissileActor::OnTimerExpireAfterCollision()
+void AMissileActor::DestroyAfterCollision_TimeExpired()
 {
 	Destroy();
 }
 
-void AMissileActor::OnTimerExpireAfterLost()
+void AMissileActor::DestroyAfterLost_TimeExpired()
 {
 	Destroy();
 }

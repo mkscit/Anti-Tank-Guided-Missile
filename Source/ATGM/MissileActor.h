@@ -48,13 +48,13 @@ private:
 	UStaticMeshComponent*      MissileBack              = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-		float TimeToDestroyMissileAfterExplosion = 20;
+		float TimeToDestroyMissileAfterExplosion = 30;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-		float TimeToDestroyMissileAfterLost = 30;
+		float TimeToDestroyMissileAfterLost = 120;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-		float Acceleration = 800;
+		float Speed = 1000;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
 		float MaxAngleOfMissileRotation = 60;
@@ -63,7 +63,7 @@ private:
 		float GuidingRate = 1;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-		float RollSpeed = 300;
+		float RollSpeed = 700;
 		
 
 	UFUNCTION()

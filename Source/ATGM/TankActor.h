@@ -37,4 +37,6 @@ private:
 	UFUNCTION(BlueprintCallable, Category = "Tank Distruction")
 		void DestroyWeakArea2(AActor* AttackSource);
 
+	void MakeBigDestruction(AActor* AttackSource);
+
 };
