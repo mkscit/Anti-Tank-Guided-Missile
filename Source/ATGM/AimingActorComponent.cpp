@@ -43,12 +43,15 @@ void UAimingActorComponent::SetUp( UStaticMeshComponent* Turret, UStaticMeshComp
 void UAimingActorComponent::AimToMainPlayer(float DeltaTime)
 {
 	FVector TargetLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+	UE_LOG(LogTemp, Display, TEXT("%s"), *TargetLocation.ToString());
 	FVector BarrelLocation = Barrel->GetComponentLocation();
 	auto Direction = (TargetLocation - BarrelLocation).GetSafeNormal();
+	DrawDebugLine(GetWorld(), BarrelLocation, BarrelLocation + Direction * 100000, FColor::Green, false, 0, 0, 10);
 
 	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
 	FRotator DirectionRotation = Direction.Rotation();
 	FRotator DeltaRotation = (DirectionRotation - BarrelRotation);
+	DrawDebugLine(GetWorld(), BarrelLocation, BarrelLocation + Barrel->GetForwardVector() * 100000, FColor::Blue, false, 0, 0, 10);
 
 	
 	TurretAimToTarget(DeltaRotation, DeltaTime);
