@@ -38,6 +38,7 @@ private:
 	void DestroyAfterLost_TimeExpired();
 	void ReGuidingMissile(float DeltaTime);
 	void Move(float DeltaTime);
+	void Explode();
 	
 	UParticleSystemComponent*  Blast 			        = nullptr;
 	UParticleSystemComponent*  Fireball                 = nullptr;

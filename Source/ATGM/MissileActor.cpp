@@ -60,7 +60,11 @@ void AMissileActor::Tick(float DeltaTime)
 
 void AMissileActor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	
+	Explode();
+}
+
+void AMissileActor::Explode()
+{
 	// Stop the fire behined the FrontPartOfMissile.
 	Fireball->Deactivate();
 
@@ -87,8 +91,6 @@ void AMissileActor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	FTimerHandle Timer;
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AMissileActor::DestroyAfterCollision_TimeExpired, TimeToDestroyMissileAfterExplosion, false);
 }
-
-
 void AMissileActor::DestroyAfterCollision_TimeExpired()
 {
 	Destroy();
@@ -96,7 +98,7 @@ void AMissileActor::DestroyAfterCollision_TimeExpired()
 
 void AMissileActor::DestroyAfterLost_TimeExpired()
 {
-	Destroy();
+	Explode();
 }
 
 void AMissileActor::ReGuidingMissile(float DeltaTime)
