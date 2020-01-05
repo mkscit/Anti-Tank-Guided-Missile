@@ -2,6 +2,7 @@
 
 
 #include "MissileActor.h"
+#include "LauncherPlayerController.h"
 
 // Sets default values
 AMissileActor::AMissileActor()
