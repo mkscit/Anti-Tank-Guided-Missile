@@ -37,8 +37,8 @@ void AMissileActor::BeginPlay()
 	TArray<UActorComponent*> ParticleSystems = 
 		GetComponentsByClass(UParticleSystemComponent ::StaticClass());
 	if (ParticleSystems.Num() > 0) {
-		Fireball = Cast<UParticleSystemComponent>(ParticleSystems[1]);
-		Blast = Cast<UParticleSystemComponent>(ParticleSystems[0]);
+		Fireball = Cast<UParticleSystemComponent>(ParticleSystems[0]);
+		Blast = Cast<UParticleSystemComponent>(ParticleSystems[1]);
 	}
 
 	FTimerHandle Timer;
@@ -65,16 +65,23 @@ void AMissileActor::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 
 void AMissileActor::Explode()
 {
+	if(!FrontPartOfMissile ) return;
+	
+	if(Fireball ) 
 	// Stop the fire behined the FrontPartOfMissile.
 	Fireball->Deactivate();
 
+	if(Blast ) 
 	// Particle of blast should be activated.
 	Blast->Activate(true);
 
-	// Activate the Radial force affecting to other objects.
-	ExplosionForce->Activate(true);
-	ExplosionForce->FireImpulse();
+	if(ExplosionForce ) {
+		// Activate the Radial force affecting to other objects.
+		ExplosionForce->Activate(true);
+		ExplosionForce->FireImpulse();
+	}
 
+	if(MissileBack )
 	// Make the missile back to be physical.
 	MissileBack->SetSimulatePhysics(true);
 

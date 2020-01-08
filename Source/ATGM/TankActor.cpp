@@ -15,8 +15,6 @@ ATankActor::ATankActor()
 void ATankActor::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
 }
 
 // Called every frame
@@ -28,20 +26,26 @@ void ATankActor::Tick(float DeltaTime)
 void ATankActor::DestroyWeakArea1(AActor* AttackSource)
 {
 	MakeBigDestruction(AttackSource);
+	// if(!AttackSource) return;
+	// if(AttackSource != this)
+	// UE_LOG(LogTemp, Warning, TEXT("DestroyWeakArea1 by %s"),*AttackSource->GetName());
 }
 
 void ATankActor::DestroyWeakArea2(AActor* AttackSource)
 {
 	MakeBigDestruction(AttackSource);
+	// if(!AttackSource) return;
+	// if(AttackSource != this)
+	// UE_LOG(LogTemp, Warning, TEXT("DestroyWeakArea2 by %s"),*AttackSource->GetName());
 }
 
 void ATankActor::MakeBigDestruction(AActor* AttackSource)
 {
 	AMissileActor* Missile = nullptr;
+	if(!AttackSource) return;
 	Missile = Cast<AMissileActor>(AttackSource);
 
 	if(!Missile) return;
-
 	TArray<UActorComponent*> StaticMeshes = 
 		GetComponentsByClass(UStaticMeshComponent::StaticClass());
 
@@ -91,6 +95,7 @@ void ATankActor::MakeBigDestruction(AActor* AttackSource)
 		if (Components.Num() > 0) 
 		{
 			AimingComponent = Cast<UAimingActorComponent>(Components[0]);
+			if (!AimingComponent) return;
 			AimingComponent->DestroyComponent();
 		}
 	}
