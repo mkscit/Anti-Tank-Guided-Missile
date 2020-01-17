@@ -38,10 +38,13 @@ void UAimingActorComponent::SetUp( UStaticMeshComponent* Turret, UStaticMeshComp
 {
 	this->Turret = Turret;
 	this->Barrel = Barrel;
+
+
 }
 
 void UAimingActorComponent::AimToMainPlayer(float DeltaTime)
 {
+	if (!Barrel) return;
 	FVector TargetLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 	// UE_LOG(LogTemp, Display, TEXT("%s"), *TargetLocation.ToString());
 	FVector BarrelLocation = Barrel->GetComponentLocation();
@@ -60,6 +63,7 @@ void UAimingActorComponent::AimToMainPlayer(float DeltaTime)
 
 void UAimingActorComponent::TurretAimToTarget(FRotator DeltaRotation, float DeltaTime)
 {
+
 	if(!Turret) return;
 	auto TurretRotatingAngle = Turret->GetComponentRotation().Yaw + (DeltaRotation.Yaw * DeltaTime);
 	Turret->SetRelativeRotation(FRotator(0, TurretRotatingAngle, 0));
