@@ -135,7 +135,11 @@ void AMissileActor::Move(float DeltaTime)
 {
 	if(!FrontPartOfMissile) return;
 	auto Distance = Speed * DeltaTime;
-	FrontPartOfMissile->AddLocalTransform(FTransform(FVector(Distance, 0, 0)));
+	// FrontPartOfMissile->AddLocalTransform(FTransform(FVector(Distance, 0, 0)));
+	FVector TargetLocation = LauncherPlayerController->Hit.Location;
+	auto Value = FVector::DotProduct(TargetLocation.GetSafeNormal(), FrontPartOfMissile->GetComponentLocation().GetSafeNormal()) * (-1);
+	FVector Force = FMath::Abs(  Value) * FrontPartOfMissile->GetMass() * Distance * FrontPartOfMissile->GetForwardVector();
+	FrontPartOfMissile->AddForce(Force);
 
 	if(!FrontPartOfMissile) return;
 	FrontPartOfMissile->AddLocalRotation(FRotator(0, 0, RollSpeed * DeltaTime));
